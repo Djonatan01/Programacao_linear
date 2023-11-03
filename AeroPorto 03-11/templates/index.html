@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixeiro Viajante</title>
+      <style>
+        .container {
+            display: flex;
+            justify-content: space-between; /* This will separate the divs */
+        }
+
+        .formulario,
+        .resposta {
+            flex-basis: calc(50% - 10px); /* Adjust as needed to create spacing between divs */
+            padding: 10px; /* Add padding for spacing */
+        }
+
+        /* Add any additional CSS styles for .formulario and .resposta here */
+    </style>
+</head>
+<body>
+<div class="container">
+  <Div class="formulario">
+    <h1>Formulário Caxeiro Viajante</h1>
+    <form action="/caxeiroViajante" method="POST">
+        <label>Total de Aeroportos:</label>
+        <input type="number" min="2" name="total_elementos" id="total_elementos" required><br>
+        <br>
+        <label>Valor Mínimo da Distância entre as cidades:</label>
+        <input type="number" min="1" name="min_matriz1" id="min_matriz1" required><br>
+        <br>
+        <label>Valor Máximo da Distância  entre as cidades:</label>
+        <input type="number" min="10" name="max_matriz1" id="max_matriz1" required><br>
+        <br>
+        <label>Informar fator redutos da tempera simulada:</label>
+        <input type="str" name="fator_redutor" id="fator_redutor" value="0" required><br>
+        <br>
+        <p>Selecionar o programa:
+        <select class = "Metodos" name = campoMetodos>
+          <option>Todos</option>
+          <option>Subida de Encosta</option>
+          <option>Subida de Encosta Alterada</option>
+          <option>Tempera Simulada</option>
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Calcular Rota">
+    </form>
+    <a href="/imagem">Área do professor?</a>
+  </Div>
+    {% if show_response_div %}
+      <div class="resposta">
+          <h2>Rota do Caxeiro Viajante</h2>
+          <p>Solução inicial: {{ solInicial }}</p>
+          <p>Valor da solução inicial: {{ ValorSolInicial }} KM</p>
+          <br>
+          {% if opcao == "SubidaEncosta" or opcao == "Todos" %}
+          <h4>Subida de Encosta</h4>
+          <p>Solução atual: {{ SolucaoAtual }}</p>
+          <p>Valor da solução atual: {{ ValAtual }} KM</p>
+          <br>
+          {% endif %}
+          {% if opcao == "SubidaEncostaAlt" or opcao == "Todos" %}
+          <h4>Subida de Encosta Alterada</h4>
+          <p>Solução inicial: {{ solucaoAtualAlterada }}</p>
+          <p>Valor da solução inicial: {{ valorAtualAlterada }} KM</p>
+          <br>
+          {% endif %}
+          {% if opcao == "TemperaSimulada" or opcao == "Todos" %}
+          <h4>Tempera Simulada</h4>
+          <p>Solução inicial: {{ solucaoTempera }}</p>
+          <p>Valor da solução inicial: {{ valorTempera }} KM</p>
+          <br>
+          {% endif %}
+      </div>
+  {% endif %}
+</div>
+</body>
+</html>
